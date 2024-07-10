@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 import Loading from "@components/Loading.svelte";
 import Main from "@components/Main.svelte";
-import { Result, ok } from "@utilities/result";
+import { Result } from "@utilities/result";
 </script>
 
 

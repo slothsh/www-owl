@@ -7,8 +7,6 @@ import {
     githubIconPaths,
     linkedinIconPaths,
 } from "@store/icons";
-    import { beforeUpdate } from "svelte";
-    import { document } from "postcss";
 
 let innerWidth = 1;
 let innerHeight = 1;

@@ -1,4 +1,5 @@
 <script lang="ts">
+import { fade, fly } from "svelte/transition";
 import SvgIcon from "@components/SvgIcon.svelte";
 import ClipboardText from "@components/ClipboardText.svelte";
 import Grid from "@components/Grid.svelte";
@@ -50,12 +51,15 @@ const socialItems = [
 
 <svelte:window bind:innerWidth bind:innerHeight bind:devicePixelRatio />
 
-<Grid width={innerWidth} height={innerHeight}
-    rows={gridSize} columns={Math.floor(gridSize * innerAspectRatio)}
-    strokeColor="#262b2b"/>
+<div in:fade={{ delay:0, duration: 500 }}>
+    <Grid width={innerWidth} height={innerHeight}
+        rows={gridSize} columns={Math.floor(gridSize * innerAspectRatio)}
+        strokeColor="#262b2b" />
+</div>
 
 <main>
-    <div class="card" bind:clientWidth={cardWidth} bind:clientHeight={cardHeight}>
+    <div class="card" bind:clientWidth={cardWidth} bind:clientHeight={cardHeight}
+        in:fly={{ delay: 300, y: 100, duration: 800 }}>
         <div class="avatar-box">
             <img class="avatar-layer2 avatar-layer0" src="assets/owlsh.png" alt="avatar owl" />
         </div>

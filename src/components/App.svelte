@@ -11,7 +11,9 @@ export let appReady: Promise<Array<Result>>;
 
 
 {#await appReady}
-    <Loading />
+    <div class="fullscreen flex">
+        <Loading />
+    </div>
 {:then}
     <Main />
 {/await}
@@ -21,5 +23,16 @@ export let appReady: Promise<Array<Result>>;
 :global(#mountApp) {
     width: 100vw;
     height: 100vh;
+}
+
+.fullscreen {
+    width: 100%;
+    height: 100%;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

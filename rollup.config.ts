@@ -14,22 +14,25 @@ import { resolve, dirname } from "node:path";
 import { sveltePreprocess } from "svelte-preprocess";
 import { type RollupOptions } from "rollup";
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 console.log("__filename:", __filename);
 console.log("__dirname:", __dirname);
 
-const production = !process.env.ROLLUP_WATCH && process.env.ENVIRONMENT === "PRODUCTION";
+const production = !process.env.ROLLUP_WATCH && (process.env.ENVIRONMENT === "PRODUCTION" || process.env.ENVIRONMENT === "PROD");
 const tsConfig = JSON.parse(readFileSync("./tsconfig.json").toString());
+
+const outputDirectory = (!production) ? "build/dev" : "build/dist";
 
 export default <RollupOptions>{
     input: "src/main.ts",
     output: {
-        sourcemap: true,
+        sourcemap: !production,
         format: "iife",
         name: "app",
-        file: "build/bundle.js"
+        file: `${outputDirectory}/bundle.js`
     },
 
     plugins: [
@@ -45,8 +48,8 @@ export default <RollupOptions>{
 
         copy({
             targets: [
-                { src: "public/index.html", dest: "build" },
-                { src: "public/assets", dest: "build" },
+                { src: "public/index.html", dest: outputDirectory },
+                { src: "public/assets", dest: outputDirectory },
             ]
         }),
 
@@ -74,7 +77,6 @@ export default <RollupOptions>{
         }),
 
         scss({
-            output: "public/build/extra.css",
             includePaths: ["src/styles"],
         }),
 
